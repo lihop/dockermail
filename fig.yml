@@ -4,3 +4,7 @@ mail:
    - "25:25"
    - "143:143"
    - "587:587"
+  volumes_from:
+   - mailbase
+mailbase:
+  build: ./mail-base
