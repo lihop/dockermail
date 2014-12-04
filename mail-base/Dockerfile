@@ -34,7 +34,6 @@ RUN apt-get clean
 RUN apt-get install -y openssl
 
 VOLUME ["/mailbase"]
-VOLUME ["/etc/ssl"]
 
 ADD ./domains /mailbase/domains
 ADD ./aliases /mailbase/aliases
@@ -47,3 +46,5 @@ ADD ./dovecot-openssl.cnf /dovecot-openssl.cnf
 ADD ./mkcert.sh	/mkcert.sh
 RUN chmod 755 /mkcert.sh
 RUN sh /mkcert.sh
+
+VOLUME ["/etc/ssl"]
