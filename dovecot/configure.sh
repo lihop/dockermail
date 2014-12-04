@@ -24,4 +24,4 @@ chown -R vmail:vmail /srv/vmail
 chmod u+w /srv/vmail
 
 # Add password file
-RUN cp /passwords /etc/dovecot/passwd
+cp /mailbase/passwords /etc/dovecot/passwd
