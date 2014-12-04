@@ -7,9 +7,11 @@ mail:
   volumes_from:
    - mailbase
    - mailvol
+  environment:
+    MAILNAME: mail.example.org
 mailvol:
   image: ubuntu:14.04
   volumes:
-   - "/srv/vmail"
+   - "/srv"
 mailbase:
   build: ./mail-base

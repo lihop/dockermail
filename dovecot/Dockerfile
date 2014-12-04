@@ -45,5 +45,7 @@ RUN chmod 755 /configure.sh
 ADD ./run.sh /run.sh
 RUN chmod 755 /run.sh
 
+ENV MAILNAME mail.docker.container
+
 # start necessary services for operation
 CMD ["/run.sh"]

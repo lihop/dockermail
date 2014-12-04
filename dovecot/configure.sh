@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # postfix configuration
-echo "mail.docker.container" > /etc/mailname
+echo $MAILNAME > /etc/mailname
 cat /etc/postfix/master-additional.cf >> /etc/postfix/master.cf
 
 # configure mail delivery to dovecot
