@@ -1,4 +1,4 @@
-FROM mail-base
+FROM ubuntu:14.04 
 
 # prerequisites
 RUN apt-get update
