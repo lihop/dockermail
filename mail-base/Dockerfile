@@ -31,6 +31,8 @@ RUN apt-get -y -q autoclean
 RUN apt-get -y -q autoremove
 RUN apt-get clean
 
+RUN apt-get install -y openssl
+
 VOLUME ["/mailbase"]
 VOLUME ["/etc/ssl"]
 
@@ -40,3 +42,8 @@ ADD ./passwords /mailbase/passwords
 
 ADD ./certs /etc/ssl/certs
 ADD ./private /etc/ssl/private
+
+ADD ./dovecot-openssl.cnf /dovecot-openssl.cnf
+ADD ./mkcert.sh	/mkcert.sh
+RUN chmod 755 /mkcert.sh
+RUN sh /mkcert.sh
