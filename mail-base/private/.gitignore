@@ -1,0 +1,5 @@
+# To ensure certs/keys don't get pushed, ignore everything in this
+# directory except for .gitignore. 
+
+*
+!.gitignore

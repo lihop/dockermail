@@ -32,7 +32,11 @@ RUN apt-get -y -q autoremove
 RUN apt-get clean
 
 VOLUME ["/mailbase"]
+VOLUME ["/etc/ssl"]
 
 ADD ./domains /mailbase/domains
 ADD ./aliases /mailbase/aliases
 ADD ./passwords /mailbase/passwords
+
+ADD ./certs /etc/ssl/certs
+ADD ./private /etc/ssl/private
