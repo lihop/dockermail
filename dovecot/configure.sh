@@ -5,8 +5,8 @@ echo "mail.docker.container" > /etc/mailname
 cat /etc/postfix/master-additional.cf >> /etc/postfix/master.cf
 
 # configure mail delivery to dovecot
-cp /aliases /etc/postfix/virtual
-cp /domains /etc/postfix/virtual-mailbox-domains
+cp /mailbase/aliases /etc/postfix/virtual
+cp /mailbase/domains /etc/postfix/virtual-mailbox-domains
 
 # todo: this could probably be done in one line
 mkdir /etc/postfix/tmp; awk < /etc/postfix/virtual '{ print $2 }' > /etc/postfix/tmp/virtual-receivers
