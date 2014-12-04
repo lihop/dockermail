@@ -42,7 +42,7 @@ ADD ./configure.sh /configure.sh
 RUN chmod 755 /configure.sh
 
 # add script to run at container start
-ADD ./run.sh
+ADD ./run.sh /run.sh
 RUN chmod 755 /run.sh
 
 # start necessary services for operation
