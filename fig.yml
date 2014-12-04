@@ -6,5 +6,10 @@ mail:
    - "587:587"
   volumes_from:
    - mailbase
+   - mailvol
+mailvol:
+  image: ubuntu:14.04
+  volumes:
+   - "/srv/vmail"
 mailbase:
   build: ./mail-base
