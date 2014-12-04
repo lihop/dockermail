@@ -19,7 +19,8 @@ postmap /etc/postfix/virtual-mailbox-maps
 
 # add user vmail who own all mail folders
 groupadd -g 5000 vmail
-useradd -g vmail -u 5000 vmail -d /srv/vmail -m
+mkdir -p /srv/vmail
+useradd -g vmail -u 5000 vmail -d /srv/vmail -M
 chown -R vmail:vmail /srv/vmail
 chmod u+w /srv/vmail
 
