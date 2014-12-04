@@ -46,6 +46,8 @@ ADD ./run.sh /run.sh
 RUN chmod 755 /run.sh
 
 ENV MAILNAME mail.docker.container
+ENV CERTIFICATE dovecot.pem
+ENV KEYFILE dovecot.pem
 
 # start necessary services for operation
 CMD ["/run.sh"]

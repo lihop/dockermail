@@ -26,3 +26,9 @@ chmod u+w /srv/vmail
 
 # Add password file
 cp /mailbase/passwords /etc/dovecot/passwd
+
+# ssl configuration
+sed -i 's/ssl-cert-snakeoil.pem/'${CERTIFICATE}'/g' /etc/postfix/main.cf
+sed -i 's/ssl-cert-snakeoil.key/'${KEYFILE}'/g' /etc/postfix/main.cf
+sed -i 's/dovecot\/dovecot.pem/ssl\/certs\/'${CERTIFICATE}'/g' /etc/dovecot/conf.d/10-ssl.conf
+sed -i 's/dovecot\/private\/dovecot.pem/ssl\/private\/'${KEYFILE}'/g' /etc/dovecot/conf.d/10-ssl.conf
