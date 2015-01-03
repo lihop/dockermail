@@ -2,6 +2,8 @@ all: mail-base dovecot rainloop owncloud
 
 .PHONY: mail-base dovecot rainloop owncloud run-dovecot run-rainloop run-owncloud
 
+#### MAIL SERVICE
+
 mail-base: 
 	cd mail-base; docker build --no-cache -t mail-base .
 
@@ -18,7 +20,7 @@ owncloud: dovecot
 	cd owncloud; docker build -t owncloud:7.0.2 .
 
 run-dovecot:
-	docker run -d -p 0.0.0.0:25:25 -p 0.0.0.0:587:587 -p 0.0.0.0:143:143 -v /srv/vmail:/srv/vmail dovecot:2.1.7
+	docker run -d -e MAILNAME=imap-test.htmlgraphic.com -p 0.0.0.0:25:25 -p 0.0.0.0:587:587 -p 0.0.0.0:143:143 -v /srv/vmail:/srv/vmail dovecot:2.1.7
 
 run-rainloop:
 	docker run -d -p 127.0.0.1:33100:80 rainloop:1.6.9
