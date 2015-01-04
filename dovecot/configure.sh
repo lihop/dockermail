@@ -8,6 +8,10 @@ cat /etc/postfix/master-additional.cf >> /etc/postfix/master.cf
 cp /mailbase/aliases /etc/postfix/virtual
 cp /mailbase/domains /etc/postfix/virtual-mailbox-domains
 
+# copy services file & DNS lookup for jailed postfix service
+cp /etc/services /var/spool/postfix/etc/services
+cp /etc/resolv.conf /var/spool/postfix/etc/resolv.conf
+
 # todo: this could probably be done in one line
 mkdir /etc/postfix/tmp; awk < /etc/postfix/virtual '{ print $2 }' > /etc/postfix/tmp/virtual-receivers
 sed -r 's,(.+)@(.+),\2/\1/,' /etc/postfix/tmp/virtual-receivers > /etc/postfix/tmp/virtual-receiver-folders
