@@ -3,18 +3,21 @@ FROM ubuntu:14.04
 # prerequisites
 RUN apt-get update
 
-# install self-signed ssl certs
-RUN apt-get install -y --force-yes ssl-cert
-
+# Install self-signed ssl certs
 # Install postfix as MTA
-RUN apt-get install -y --force-yes postfix
-
 # Install dovecot as IMAP server
-RUN apt-get install -y --force-yes dovecot-imapd
+RUN apt-get install -y --force-yes ssl-cert postfix dovecot-imapd supervisor \ 
+    rsyslog && rm -rf /var/lib/apt/lists/*
+
+# SUPERVISOR
+RUN mkdir -p /var/log/supervisor
+ADD supervisord.conf /etc/supervisor/conf.d/
 
 # postfix configuration
 ADD ./postfix.main.cf /etc/postfix/main.cf
 ADD ./postfix.master.cf.append /etc/postfix/master-additional.cf
+ADD ./postfix.sh /opt/postfix.sh
+RUN chmod 755 /opt/postfix.sh && cp /etc/hostname /etc/mailname
 
 # dovecot configuration
 ADD ./dovecot.mail /etc/dovecot/conf.d/10-mail.conf

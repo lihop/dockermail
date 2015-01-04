@@ -17,14 +17,14 @@ help:
 	@echo "     make start        - Start the EXISTING $(NAME) container"
 	@echo "     make stop         - Stop $(NAME) container"
 	@echo "     make remove       - Remove $(NAME) container"
-	@echo "     make dovecot      - Build the $(NAME) image"
+	@echo "     make build        - Build the $(NAME) image"
 	@echo "     make data         - Build containers for persistent data"
 
 #### MAIL SERVICE
 
 run: 
 	@echo "Run $(NAME)..."
-	docker run -d --volumes-from mailvol --volumes-from mailbase -e MAILNAME=imap-test.$(DOMAIN) --name $(NAME) -p 0.0.0.0:25:25 -p 0.0.0.0:587:587 -p 0.0.0.0:143:143 dovecot:2.1.7
+	docker run -d --restart=always --volumes-from mailvol --volumes-from mailbase -e MAILNAME=imap-test.$(DOMAIN) --name $(NAME) -p 0.0.0.0:25:25 -p 0.0.0.0:587:587 -p 0.0.0.0:143:143 dovecot:2.1.7
 
 start:
 	@echo "Starting $(NAME)..."
@@ -38,7 +38,7 @@ remove: stop
 	@echo "Removing $(NAME)..."
 	docker rm $(NAME)
 
-dovecot:
+build:
 	cd dovecot; docker build -t dovecot:2.1.7 .
 
 data:	
