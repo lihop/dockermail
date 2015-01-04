@@ -24,7 +24,7 @@ help:
 
 run: 
 	@echo "Run $(NAME)..."
-	docker run -d --restart=always --volumes-from mailvol --volumes-from mailbase -e MAILNAME=imap-test.$(DOMAIN) --name $(NAME) -p 0.0.0.0:25:25 -p 0.0.0.0:587:587 -p 0.0.0.0:143:143 dovecot:2.1.7
+	docker run -d --restart=always --volumes-from mailvol --volumes-from mailbase --name $(NAME) -p 0.0.0.0:25:25 -p 0.0.0.0:587:587 -p 0.0.0.0:143:143 dovecot:2.1.7
 
 start:
 	@echo "Starting $(NAME)..."
