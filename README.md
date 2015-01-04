@@ -1,7 +1,22 @@
-dockermail
+A mail server in a box.
 ==========
 
-A mail server in a box.
+Issuing either of the commands below will create am IMAP server with any important data safely keep in a persistent container. 
+
+###Command Line
+```bash
+    $ git clone git@github.com:htmlgraphic/dockermail.git && cd dockermail
+    $ make data
+    $ make run
+    $ make start
+```
+
+###Using Fig
+```bash
+    $ git clone git@github.com:htmlgraphic/dockermail.git && cd dockermail
+    $ fig up -d
+```
+
 
 A secure, minimal-configuration mail server in a docker container, including webmail.
 
@@ -48,23 +63,29 @@ Setup
 =====
 
 
-1) Add all domains you want to receive mail for to the file `mail-base/domains`, like this:
+###1) Add needed domains 
+
+Any domains you want to receive mail for to the file `mail-base/domains`:
 
     example.org
     example.net
 
-2) Add user aliases to the file `mail-base/aliases`, like
+###2) Add user aliases 
 
-    johndoe@example.org	        john.doe@example.org
+Edit the file `mail-base/aliases`, to add any needed aliases:
+
+    johndoe@example.org         john.doe@example.org
     john.doe@example.org        john.doe@example.org
     admin@forum.example.org     forum-admin@example.org
-    @example.net	        catch-all@example.net
+    @example.net          catch-all@example.net
 
 An IMAP mail account is created for each entry on the right hand side.
 Every mail sent to one of the addresses in the left column will
 be delivered to the corresponding account in the right column.
 
-3) Add user passwords to the file `mail-base/passwords` like this
+###3) Add user passwords
+
+Edit the file `mail-base/passwords` with the following:
 
     john.doe@example.org:{PLAIN}password123
     admin@example.org:{SHA256-CRYPT}$5$ojXGqoxOAygN91er$VQD/8dDyCYOaLl2yLJlRFXgl.NSrB3seZGXBRMdZAr6
@@ -72,14 +93,18 @@ be delivered to the corresponding account in the right column.
 To get the hash values, you can either install dovecot locally or use lxc-attach to attach to the running
 container and run `doveadm pw -s <scheme-name>` inside.
 
-4) Build containers:
+>###You can stop here if you only would like a IMAP server setup
+
+---
+
+###4) Build ALL Containers:
 
     make
 
 You can build single targets, so if you dont want the webmail you can just run `make dovecot` instead. The Makefile is
 extremely simple, dont be afraid to look inside.
 
-6) Run container and map ports 25 and 143 from the host to the container.
+###5) Run container and map ports 25 and 143 from the host to the container.
    To store your mail outside the container, map `/srv/vmail/` to
    a directory on your host. (This is recommended, otherwise
    you have to remember to backup your mail when you want to restart the container)
@@ -91,19 +116,19 @@ extremely simple, dont be afraid to look inside.
    at the Makefile to see what this does exactly. Note that you have to stop old containers
    manually before invoking make, as this currently cannot be done automatically.
 
-7) (Optional) If you want to use owncloud, enter the public url at which owncloud can be reached (e.g. `owncloud.example.org`) into the file `owncloud/public_url`.
+###6) Optional
+If you want to use owncloud, enter the public url at which owncloud can be reached (e.g. `owncloud.example.org`) into the file `owncloud/public_url`.
 
-8) Enjoy.
 
 
 Known issues / Todo / Wishlist
 ==============================
+- Improve this guide
 - HELO isn't set correctly, which can lead to problems with outgoing mail on some servers
-
 - It would be nice to have a way of catching mail to all subdomains.
-
 - Changing any configuration requires rebuilding the image and restarting the container
-
 - The Makefile currently cannot stop/replace old containers automatically
 
-Patches welcome!
+
+
+####PULL REQUESTS WELCOME!
