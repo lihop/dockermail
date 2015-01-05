@@ -4,6 +4,7 @@
 NAME = imap-server
 IMAGE_REPO = htmlgraphic
 IMAGE_NAME = $(IMAGE_REPO)/$(NAME)
+VERSION = 2.1.7
 DOMAIN = htmlgraphic.com
 
 all:: help
@@ -13,18 +14,26 @@ help:
 	@echo ""
 	@echo "-- Help Menu"
 	@echo ""
+	@echo "     make build        - Build the $(NAME) image"
+	@echo "     make push         - Push $(IMAGE_NAME) to public docker repo"
 	@echo "     make run          - Create a container for $(NAME)"
 	@echo "     make start        - Start the EXISTING $(NAME) container"
 	@echo "     make stop         - Stop $(NAME) container"
+	@echo "     make restart      - Stop and start $(NAME) container"
 	@echo "     make remove       - Remove $(NAME) container"
-	@echo "     make build        - Build the $(NAME) image"
 	@echo "     make data         - Build containers for persistent data"
 
 #### MAIL SERVICE
 
+build:
+	cd dovecot; docker build -t $(IMAGE_NAME):$(VERSION) .
+
+push:
+	docker push $(IMAGE_NAME)
+
 run: 
 	@echo "Run $(NAME)..."
-	docker run -d --restart=always --volumes-from mailvol --volumes-from mailbase --name $(NAME) -p 0.0.0.0:25:25 -p 0.0.0.0:587:587 -p 0.0.0.0:143:143 dovecot:2.1.7
+	docker run -d --restart=always --volumes-from mailvol --volumes-from mailbase --name $(NAME) -p 0.0.0.0:25:25 -p 0.0.0.0:587:587 -p 0.0.0.0:143:143 $(IMAGE_NAME):$(VERSION)
 
 start:
 	@echo "Starting $(NAME)..."
@@ -34,12 +43,11 @@ stop:
 	@echo "Stopping $(NAME)..."
 	docker stop $(NAME)
 
+restart: stop start
+
 remove: stop
 	@echo "Removing $(NAME)..."
 	docker rm $(NAME)
-
-build:
-	cd dovecot; docker build -t dovecot:2.1.7 .
 
 data:	
 	@echo "Creating data containers for IMAP Server..."
