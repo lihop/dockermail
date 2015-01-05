@@ -3,7 +3,7 @@ machine:
     - docker
 dependencies:
   override:
-    - docker build -t dovecot .
+    - docker build -t dovecot dovecot/
 test:
   override:
     # test postfix
