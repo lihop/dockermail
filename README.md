@@ -1,3 +1,5 @@
+[![Circle CI](https://circleci.com/gh/htmlgraphic/Mail-Server/tree/ci.svg?style=svg&circle-token=f6aa2aeba9a663c714d5b2da1af9554c5afc086a)](https://circleci.com/gh/htmlgraphic/Mail-Server/tree/ci)
+
 A mail server in a box.
 ==========
 

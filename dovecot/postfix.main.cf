@@ -28,7 +28,7 @@ smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 # information on enabling SSL in the smtp client.
 
 
-myhostname = localhost
+myhostname = imap-test.htmlgraphic.com
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 mydestination = /etc/mailname, 67b0a2fd2749, localhost.localdomain, localhost
